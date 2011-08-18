@@ -71,6 +71,11 @@ if node.has_key?("python_packages")
   end
 end
 
+#Install everything in reqs.txt with pip
+execute "pip-install-requirements-file" do
+  command "/home/vagrant/.virtualenvs/#{node[:project_name]}/bin/pip install -r /vagrant/reqs.txt"
+end
+
 execute "chown-home" do
   command "sudo chown -R vagrant /home/vagrant"
 end
