@@ -18,7 +18,7 @@ end
 # Hackin' it up.
 
 service "postgresql" do
-  service_name "postgresql-8.4"
+  service_name "postgresql"
   supports :restart => true, :status => true, :reload => true
   action :restart
 end
@@ -42,6 +42,6 @@ end
 # Create a database with the same name as the project and also with the owner
 # set to the user we just created.
 execute "postgres-createdb" do
-    command "sudo -u postgres createdb -O #{node[:project_name]} #{node[:project_name]}"
-    not_if "sudo -u postgres psql -c \"SELECT * FROM pg_database;\" | grep #{node['project_name']}"
+    command "sudo -u postgres createdb -O #{node[:project_name]} #{node[:project_name]}_dev"
+    not_if "sudo -u postgres psql -c \"SELECT * FROM pg_database;\" | grep #{node['project_name']}_dev"
 end
